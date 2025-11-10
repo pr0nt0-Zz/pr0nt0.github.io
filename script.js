@@ -2,71 +2,67 @@
 const themeToggle = document.getElementById('theme-toggle');
 const htmlElement = document.documentElement;
 
-// Ensure theme toggle button exists before running
-if (themeToggle) {
-    // Load saved theme from localStorage (default: dark)
-    const savedTheme = localStorage.getItem('theme') || 'dark-mode';
-    if (savedTheme === 'light-mode') {
-        htmlElement.classList.add('light-mode');
-        themeToggle.textContent = '☀️';
-    } else {
-        themeToggle.textContent = '🌙';
-    }
-
-    // Theme toggle button click event
-    themeToggle.addEventListener('click', () => {
-        htmlElement.classList.toggle('light-mode');
-        const newTheme = htmlElement.classList.contains('light-mode') ? 'light-mode' : 'dark-mode';
-        localStorage.setItem('theme', newTheme);
-        themeToggle.textContent = newTheme === 'light-mode' ? '☀️' : '🌙';
-    });
+// Load saved theme (default = dark-mode)
+const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+if (savedTheme === 'light-mode') {
+  htmlElement.classList.add('light-mode');
+  themeToggle.textContent = '☀️';
+} else {
+  themeToggle.textContent = '🌙';
 }
 
-// ===== Smooth Scrolling for Navigation Links =====
+// Toggle theme and save preference
+themeToggle.addEventListener('click', () => {
+  htmlElement.classList.toggle('light-mode');
+  const newTheme = htmlElement.classList.contains('light-mode') ? 'light-mode' : 'dark-mode';
+  localStorage.setItem('theme', newTheme);
+  themeToggle.textContent = newTheme === 'light-mode' ? '☀️' : '🌙';
+});
+
+// ===== Smooth Scrolling for Internal Links =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href && href !== '#') {
-            const target = document.querySelector(href);
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    });
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href && href !== '#') {
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
 });
 
 // ===== Fade-In Animation on Scroll =====
 const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+  threshold: 0.15,
+  rootMargin: '0px 0px -50px 0px'
 };
 
 const fadeInObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeIn 0.6s ease-out forwards';
-            observer.unobserve(entry.target);
-        }
-    });
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animation = 'fadeIn 0.6s ease-out forwards';
+      observer.unobserve(entry.target);
+    }
+  });
 }, observerOptions);
 
-// Observe sections and cards that should fade in
 document.querySelectorAll('.section, .achievement-card, .note-card').forEach(el => {
-    fadeInObserver.observe(el);
+  fadeInObserver.observe(el);
 });
 
 // ===== Inject Fade-In Keyframes =====
 const styleElement = document.createElement('style');
 styleElement.textContent = `
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }`;
 document.head.appendChild(styleElement);
