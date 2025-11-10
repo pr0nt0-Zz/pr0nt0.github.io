@@ -1,3 +1,6 @@
+/* ===== Import Cyber-Style Font ===== */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
 /* ===== Root Theme Variables ===== */
 :root {
   --bg: #0d1117;
@@ -9,7 +12,7 @@
 }
 
 .light-mode {
-  --bg: #fdfdfd;
+  --bg: #fafafa;
   --text: #1a1a1a;
   --card: #f2f4f6;
   --accent: #0066cc;
@@ -24,12 +27,13 @@
 }
 
 body {
-  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  font-family: "JetBrains Mono", monospace;
   background: var(--bg);
   color: var(--text);
   margin: 0;
   padding: 0;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 16px;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
@@ -46,7 +50,7 @@ a:hover {
 /* ===== Header & Navbar ===== */
 header {
   background: var(--card);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -65,22 +69,23 @@ header {
 .logo {
   color: var(--accent);
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   letter-spacing: 1px;
+  text-transform: lowercase;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1.5rem;
+  gap: 1.6rem;
   margin: 0;
   padding: 0;
 }
 
 .nav-links a {
-  font-weight: 500;
   color: var(--text);
   position: relative;
+  font-weight: 500;
 }
 
 .nav-links a::after {
@@ -125,6 +130,8 @@ h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
   position: relative;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
 h2::after {
@@ -142,18 +149,20 @@ h2::after {
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 8px 20px var(--shadow);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .about-content:hover {
   transform: translateY(-3px);
+  box-shadow: 0 10px 25px var(--shadow);
 }
 
 .about-content p {
   text-align: justify;
-  line-height: 1.8;
+  line-height: 1.9;
   margin-bottom: 1rem;
   font-size: 1.05rem;
+  color: var(--text);
 }
 
 /* ===== Footer ===== */
@@ -179,7 +188,7 @@ footer p {
 .social-links a {
   color: var(--accent);
   margin: 0 0.6rem;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -215,7 +224,7 @@ footer p {
   }
 }
 
-/* ===== Smooth Fade-In Animation ===== */
+/* ===== Fade-In Animation ===== */
 .section {
   opacity: 0;
   transform: translateY(20px);
