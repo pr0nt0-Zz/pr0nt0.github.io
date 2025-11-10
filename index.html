@@ -18,7 +18,7 @@
           <li><a href="notes.html">Notes</a></li>
           <li><a href="ctf.html">CTF Writeups</a></li>
         </ul>
-        <button class="theme-toggle" onclick="toggleTheme">🌙</button>
+        <button id="theme-toggle" class="theme-toggle">🌙</button>
       </div>
     </nav>
   </header>
@@ -30,32 +30,15 @@
         <h2>About Me</h2>
         <div class="about-content">
           <p>
-            Hi there 👋 I'm <strong>Muhammad Zailan</strong>, a passionate <strong>Networking and Cybersecurity</strong> student 
-            from Malaysia with a strong curiosity about how systems, networks, and software interact — and how they can be 
-            protected from modern threats.
+            Hello 👋 I'm <strong>Muhammad Zailan</strong>, a <strong>Networking and Cybersecurity</strong> student from Malaysia.
+            I’m passionate about understanding how systems, software, and networks interact — and how they can be
+            secured against real-world threats.
           </p>
           <p>
-            I graduated with a <strong>Diploma in Computer Science</strong> and am currently pursuing a <strong>Bachelor's in 
-            Computer Networks</strong>. Alongside my studies, I work on practical projects, participate in cybersecurity challenges, 
-            and continuously improve my technical skills.
+            I hold a <strong>Diploma in Computer Science</strong> and am currently pursuing a 
+            <strong>Bachelor’s in Computer Networks</strong>. My academic and personal projects focus on areas such as
+            network configuration, system defense, and threat monitoring.
           </p>
-          <!-- Removed paragraphs about ethical hacking and side jobs -->
-          
-          <div class="skills">
-            <h3>Skills & Interests</h3>
-            <div class="skill-tags">
-              <span class="tag">Networking</span>
-              <span class="tag">Penetration Testing</span>
-              <span class="tag">Web Security</span>
-              <span class="tag">Reverse Engineering</span>
-              <span class="tag">Cryptography</span>
-              <span class="tag">Python</span>
-              <span class="tag">C++</span>
-              <span class="tag">Linux (Kali, Ubuntu)</span>
-              <span class="tag">Elasticsearch & Kibana</span>
-              <span class="tag">Virtualization (VMware, VirtualBox)</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -72,17 +55,6 @@
     </div>
   </footer>
 
-  <script>
-    function toggleTheme() {
-      const currentTheme = document.body.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        document.body.removeAttribute('data-theme');
-        document.querySelector('.theme-toggle').textContent = '🌙';
-      } else {
-        document.body.setAttribute('data-theme', 'light');
-        document.querySelector('.theme-toggle').textContent = '🌑';
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
