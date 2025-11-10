@@ -1,70 +1,72 @@
-// Theme Toggle Functionality
+// ===== Theme Toggle Functionality =====
 const themeToggle = document.getElementById('theme-toggle');
 const htmlElement = document.documentElement;
 
-// Check for saved theme preference or default to 'dark-mode'
-const currentTheme = localStorage.getItem('theme') || 'dark-mode';
-if (currentTheme === 'light-mode') {
-    htmlElement.classList.add('light-mode');
-    themeToggle.textContent = '☀️';
-} else {
-    themeToggle.textContent = '🌙';
+// Ensure theme toggle button exists before running
+if (themeToggle) {
+    // Load saved theme from localStorage (default: dark)
+    const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+    if (savedTheme === 'light-mode') {
+        htmlElement.classList.add('light-mode');
+        themeToggle.textContent = '☀️';
+    } else {
+        themeToggle.textContent = '🌙';
+    }
+
+    // Theme toggle button click event
+    themeToggle.addEventListener('click', () => {
+        htmlElement.classList.toggle('light-mode');
+        const newTheme = htmlElement.classList.contains('light-mode') ? 'light-mode' : 'dark-mode';
+        localStorage.setItem('theme', newTheme);
+        themeToggle.textContent = newTheme === 'light-mode' ? '☀️' : '🌙';
+    });
 }
 
-// Theme toggle click handler
-themeToggle.addEventListener('click', () => {
-    htmlElement.classList.toggle('light-mode');
-    const newTheme = htmlElement.classList.contains('light-mode') ? 'light-mode' : 'dark-mode';
-    localStorage.setItem('theme', newTheme);
-    themeToggle.textContent = newTheme === 'light-mode' ? '☀️' : '🌙';
-});
-
-// Smooth scroll for navigation links
+// ===== Smooth Scrolling for Navigation Links =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
-        if (href !== '#') {
-            e.preventDefault();
+        if (href && href !== '#') {
             const target = document.querySelector(href);
             if (target) {
+                e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth' });
             }
         }
     });
 });
 
-// Add fade-in animation on scroll
+// ===== Fade-In Animation on Scroll =====
 const observerOptions = {
-    threshold: 0.1,
+    threshold: 0.15,
     rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const fadeInObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeIn 0.6s ease-in forwards';
+            entry.target.style.animation = 'fadeIn 0.6s ease-out forwards';
             observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Observe all cards and sections
-document.querySelectorAll('.about-card, .achievement-card, .note-card, .writeup-card').forEach(el => {
-    observer.observe(el);
+// Observe sections and cards that should fade in
+document.querySelectorAll('.section, .achievement-card, .note-card').forEach(el => {
+    fadeInObserver.observe(el);
 });
 
-// Add fadeIn keyframe animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+// ===== Inject Fade-In Keyframes =====
+const styleElement = document.createElement('style');
+styleElement.textContent = `
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
     }
-`;
-document.head.appendChild(style);
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}`;
+document.head.appendChild(styleElement);
